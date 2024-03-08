@@ -4,7 +4,7 @@ import Home from "./pages/HomePage/Index";
 
 function App() {
   return (
-    <main>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -12,7 +12,7 @@ function App() {
           <Route path="/contact" element={"Contact"} />
         </Routes>
       </BrowserRouter>
-    </main>
+    </div>
   );
 }
 
