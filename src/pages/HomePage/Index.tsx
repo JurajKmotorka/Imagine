@@ -6,6 +6,7 @@ import { fetchTagsAPI, fetchImagesAPI } from "../../utils/api";
 function Home() {
   const [tags, setTags] = useState<string[]>([]);
   const [images, setImages] = useState<string[]>([]);
+
   {
     /* tag API call */
   }
@@ -13,17 +14,19 @@ function Home() {
     try {
       const tagsResponse = await fetchTagsAPI(userInput);
       setTags(tagsResponse);
+      console.log(tagsResponse);
+
+      {
+        /* Unsplash API call */
+      }
+      try {
+        const imagesResponse = await fetchImagesAPI(tags);
+        //   setImages(imagesResponse);
+      } catch (error) {
+        console.log("Error fetching images:", error);
+      }
     } catch (error) {
       console.log("Error fetching tags:", error);
-    }
-    {
-      /* Unsplash API call */
-    }
-    try {
-      const imagesResponse = await fetchImagesAPI(tags);
-      setImages(imagesResponse);
-    } catch (error) {
-      console.log("Error fetching images:", error);
     }
   };
 
@@ -32,9 +35,9 @@ function Home() {
       {/* input for text */}
       {/* button for submit */}
       <Input onSubmit={handleInputSubmit} />
-
+      <div>{tags}</div>
       {/* Images output */}
-      <Output tags={tags} images={images} />
+      {/* <Output tags={tags} images={images} /> */}
     </div>
   );
 }
