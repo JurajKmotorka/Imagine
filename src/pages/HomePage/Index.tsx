@@ -33,9 +33,7 @@ function Home() {
   return (
     <div>
       <Input onSubmit={handleInputSubmit} />
-      <div>{tags}</div>
-      {/* Render the image */}
-      {image && <img src={image} alt="Unsplash Image" />}
+      <Output tags={tags ? tags : []} images={image ? [image] : []} />
     </div>
   );
 }
