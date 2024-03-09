@@ -17,36 +17,33 @@ export const fetchTagsAPI = async (userInput: string): Promise<string[]> => {
     const response = await fetch(url, options);
     const result = await response.json(); // Assuming the response is in JSON format
     console.log(result);
-    return result.categories; // Assuming the tags are in the 'tags' property of the result
+    return result.keywords; // Assuming the tags are in the 'tags' property of the result
   } catch (error) {
     console.error(error);
     throw error; // Rethrow the error to handle it in the caller
   }
 };
 
-export const fetchImagesAPI = async (tags: string[]) => {
+export const fetchImagesAPI = async (tags: string[]): Promise<any> => {
   const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 
   console.log("first tag:", tags[0]);
-  fetch(
-    `https://api.unsplash.com/search/photos?query=${tags[0]}&client_id=${accessKey}`
-  )
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
+
+  try {
+    const response = await fetch(
+      `https://api.unsplash.com/search/photos?query=${tags[0]}&client_id=${accessKey}`
+    );
+
+    if (!response.ok) {
       throw new Error("Network response was not ok.");
-    })
-    .then((data) => {
-      const firstImage = data.results[0];
-      console.log(firstImage);
-      return firstImage;
-      // Do something with the first image, e.g., display it on your website
-    })
-    .catch((error) => {
-      console.error(
-        "There has been a problem with your fetch operation:",
-        error
-      );
-    });
+    }
+
+    const data = await response.json();
+    const firstImage = data.results[1];
+    console.log(firstImage);
+    return firstImage;
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+    throw error;
+  }
 };

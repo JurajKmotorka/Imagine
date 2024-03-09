@@ -1,43 +1,41 @@
-import { useState } from "react";
 import Input from "./Input";
 import Output from "./Output";
 import { fetchTagsAPI, fetchImagesAPI } from "../../utils/api";
+import { useState } from "react";
 
 function Home() {
   const [tags, setTags] = useState<string[]>([]);
-  const [images, setImages] = useState<string[]>([]);
+  const [image, setImage] = useState<string | null>(null); // State to store the image URL
 
-  {
-    /* tag API call */
-  }
-  const handleInputSubmit = async (userInput: string) => {
-    try {
-      const tagsResponse = await fetchTagsAPI(userInput);
-      setTags(tagsResponse);
-      console.log(tagsResponse);
-
-      {
-        /* Unsplash API call */
-      }
-      try {
-        const imagesResponse = await fetchImagesAPI(tags);
-        //   setImages(imagesResponse);
-      } catch (error) {
-        console.log("Error fetching images:", error);
-      }
-    } catch (error) {
-      console.log("Error fetching tags:", error);
-    }
+  const handleInputSubmit = (userInput: string) => {
+    fetchTagsAPI(userInput)
+      .then((tagsResponse) => {
+        console.log("Tags response:", tagsResponse);
+        setTags(tagsResponse);
+        return fetchImagesAPI(tagsResponse);
+      })
+      .then((imagesResponse) => {
+        console.log("Images response:", imagesResponse);
+        // Assuming imagesResponse contains the URL of the image
+        if (
+          imagesResponse &&
+          imagesResponse.urls &&
+          imagesResponse.urls.regular
+        ) {
+          setImage(imagesResponse.urls.regular); // Set the image URL in state
+        }
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
   };
 
   return (
     <div>
-      {/* input for text */}
-      {/* button for submit */}
       <Input onSubmit={handleInputSubmit} />
       <div>{tags}</div>
-      {/* Images output */}
-      {/* <Output tags={tags} images={images} /> */}
+      {/* Render the image */}
+      {image && <img src={image} alt="Unsplash Image" />}
     </div>
   );
 }
