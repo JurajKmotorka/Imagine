@@ -1,25 +1,37 @@
-import { OrbitControls, Sphere, Environment } from "@react-three/drei";
-import { useControls } from "leva";
-const ReflectiveSphere = () => {
-  const tweakableProperties = useControls({
-    color: "#ff0000",
-    roughness: { value: 0, min: 0, max: 1, step: 0.01 },
-    metalness: { value: 1, min: 0, max: 1, step: 0.01 },
-  });
+import { OrbitControls, Sphere } from "@react-three/drei";
+import Donut from "./Donut";
 
+function GroundPlane() {
   return (
-    <Sphere args={[1, 32, 32]} position={[0, 0, 0]}>
-      <meshStandardMaterial {...tweakableProperties} />
-    </Sphere>
+    <mesh
+      receiveShadow={true}
+      rotation={[Math.PI / -2, 0, 0]}
+      position={[0, 0, 0]}
+    >
+      <planeGeometry attach="geometry" args={[500, 500]} />
+      <meshStandardMaterial attach="material" color="white" />
+    </mesh>
   );
-};
+}
 
 function Scene() {
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <OrbitControls /> <ReflectiveSphere />
-      <Environment preset="city" background />
+      <OrbitControls />
+      <ambientLight intensity={0.3} />
+      <directionalLight
+        castShadow
+        position={[0, 10, 5]}
+        intensity={5}
+        shadow-mapSize={[1024, 1024]}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+      />
+      <Donut scale={10} position={[0, 0, 0]} castShadow={true} />
+
+      <GroundPlane />
     </>
   );
 }
