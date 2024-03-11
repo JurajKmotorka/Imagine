@@ -24,7 +24,7 @@ export const fetchTagsAPI = async (userInput: string): Promise<string[]> => {
   }
 };
 
-export const fetchImagesAPI = async (tag: string[]): Promise<string> => {
+export const fetchImagesAPI = async (tag: string): Promise<string> => {
   const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 
   console.log("first tag:", tag);

@@ -10,6 +10,8 @@ Title: Donut 2.0
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
+import { useState } from "react";
+import { useSpring, animated, config } from "@react-spring/three";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -31,14 +33,20 @@ type ContextType = Record<
 >;
 
 export default function Donut(props: JSX.IntrinsicElements["group"]) {
+  const [hovered, setHovered] = useState(false);
+
   const { nodes, materials } = useGLTF("/scene.gltf") as GLTFResult;
   materials.icing.transparent = true; // Enable transparency
-  materials.icing.opacity = 0.6; // Set opacity to 80%
-  materials.icing.color = new THREE.Color(0xff0000);
-  materials.icing.metalness = 0.2;
-  materials.icing.roughness = 0.3;
+  materials.icing.opacity = 0.8; // Set opacity to 80%
+  materials.icing.metalness = 0.6;
+  materials.icing.roughness = 0.5;
+  const springs = useSpring({
+    scale: hovered ? 6.5 : 6,
+    config: config.gentle,
+  });
+
   return (
-    <group {...props} dispose={null} castShadow>
+    <animated.group {...props} dispose={null} castShadow {...springs}>
       <mesh
         castShadow
         geometry={nodes.Object_4.geometry}
@@ -46,6 +54,12 @@ export default function Donut(props: JSX.IntrinsicElements["group"]) {
         position={[0, 0.037, 0]}
       />
       <mesh
+        onPointerOver={(e) => {
+          e.stopPropagation(), setHovered(true);
+        }}
+        onPointerOut={(e) => {
+          e.stopPropagation(), setHovered(false);
+        }}
         castShadow
         geometry={nodes.Object_6.geometry}
         material={materials.icing}
@@ -59,7 +73,7 @@ export default function Donut(props: JSX.IntrinsicElements["group"]) {
         rotation={[1.448, 0.073, 3.007]}
         scale={0.141}
       />
-    </group>
+    </animated.group>
   );
 }
 

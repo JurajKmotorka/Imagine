@@ -5,22 +5,19 @@ import { useState } from "react";
 
 function Home() {
   const [tags, setTags] = useState<string[]>([]);
-  const [image, setImage] = useState<string | null>(null); // State to store the image URL
-
+  let images: string[] = [];
   const handleInputSubmit = (userInput: string) => {
     fetchTagsAPI(userInput)
       .then((tagsResponse) => {
         console.log("Tags response:", tagsResponse);
         setTags(tagsResponse);
-        return fetchImagesAPI(tagsResponse);
+        const tagsToRender = tagsResponse.slice(0, 3);
+
+        return (images = tagsToRender.map((tag) => {
+          return fetchImagesAPI(tag);
+        }));
       })
-      .then((imagesResponse) => {
-        console.log("Images response:", imagesResponse);
-        // Assuming imagesResponse contains the URL of the image
-        {
-          setImage(imagesResponse); // Set the image URL in state
-        }
-      })
+
       .catch((error) => {
         console.log("Error:", error);
       });
@@ -29,7 +26,7 @@ function Home() {
   return (
     <div>
       <Input onSubmit={handleInputSubmit} />
-      <Output tags={tags ? tags : []} images={image ? [image] : []} />
+      <Output tags={tags ? tags : []} images={images ? images : []} />
     </div>
   );
 }
