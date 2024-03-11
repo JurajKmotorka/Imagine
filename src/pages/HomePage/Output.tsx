@@ -1,4 +1,5 @@
 function Output({ tags, images }: { tags: string[]; images: string[] }) {
+  console.log("Output: ", { tags, images });
   return (
     <div>
       <ul>
