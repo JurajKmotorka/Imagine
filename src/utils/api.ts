@@ -24,14 +24,14 @@ export const fetchTagsAPI = async (userInput: string): Promise<string[]> => {
   }
 };
 
-export const fetchImagesAPI = async (tags: string[]): Promise<any> => {
+export const fetchImagesAPI = async (tag: string[]): Promise<string> => {
   const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 
-  console.log("first tag:", tags[0]);
+  console.log("first tag:", tag);
 
   try {
     const response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${tags[0]}&client_id=${accessKey}`
+      `https://api.unsplash.com/search/photos?query=${tag}&client_id=${accessKey}`
     );
 
     if (!response.ok) {
@@ -39,7 +39,7 @@ export const fetchImagesAPI = async (tags: string[]): Promise<any> => {
     }
 
     const data = await response.json();
-    const firstImage = data.results[1];
+    const firstImage = data.results[1].urls.regular;
     console.log(firstImage);
     return firstImage;
   } catch (error) {

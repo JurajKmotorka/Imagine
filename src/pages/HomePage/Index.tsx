@@ -17,12 +17,8 @@ function Home() {
       .then((imagesResponse) => {
         console.log("Images response:", imagesResponse);
         // Assuming imagesResponse contains the URL of the image
-        if (
-          imagesResponse &&
-          imagesResponse.urls &&
-          imagesResponse.urls.regular
-        ) {
-          setImage(imagesResponse.urls.regular); // Set the image URL in state
+        {
+          setImage(imagesResponse); // Set the image URL in state
         }
       })
       .catch((error) => {
