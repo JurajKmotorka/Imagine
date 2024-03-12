@@ -16,7 +16,7 @@ function Scene() {
       <Donut position={[12, 2, 0.5]} rotation={[1, -10, 69]} />
       <ambientLight intensity={10} />
       <directionalLight intensity={100} position={[10, 10, 5]} />
-      <MacBook position={[2, 0, 4]} />
+      <MacBook position={[2, 0, 4]} rotation={[0, 2, 0]} />
       <Astronaut
         position={[10, -8, 2]}
         scale={4}
