@@ -10,13 +10,15 @@ function Output({ tags, images }: { tags: string[]; images: string[] }) {
 
       <div className="image-gallery">
         {images.map((imageUrl, index) => (
-          <img
-            key={index}
-            src={imageUrl}
-            alt={`
+          <div>
+            <img
+              key={index}
+              src={imageUrl}
+              alt={`
             Image ${index + 1}
           `}
-          />
+            />
+          </div>
         ))}
       </div>
     </div>
