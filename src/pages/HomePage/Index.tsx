@@ -1,11 +1,11 @@
 import Input from "./Input";
 import Output from "./Output";
-import { fetchTagsAPI, fetchImagesAPI } from "../../utils/api";
+import { fetchTagsAPI, fetchImagesAPI, trimmedData } from "../../utils/api";
 import { useState } from "react";
 
 function Home() {
   const [tags, setTags] = useState<string[]>([]);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<trimmedData[]>([]);
 
   const handleInputSubmit = (userInput: string) => {
     fetchTagsAPI(userInput)
@@ -18,10 +18,10 @@ function Home() {
         });
 
         Promise.all(promises)
-          .then((imagesResponses) => {
-            const urls = imagesResponses.map((response) => response);
-            console.log("Images response:", urls);
-            setImages(urls);
+          .then((returnedData) => {
+            const data = returnedData.map((response) => response);
+            console.log("Images response:", data);
+            setImages(data);
           })
           .catch((error) => {
             console.log("Error fetching images:", error);

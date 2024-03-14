@@ -1,4 +1,4 @@
-import { CameraControls, PerspectiveCamera, Stage } from "@react-three/drei";
+import { PerspectiveCamera, Stars } from "@react-three/drei";
 import Donut from "./Donut";
 import Astronaut from "./Astronaut";
 import MacBook from "./MacBook";
@@ -10,18 +10,21 @@ function Scene() {
       <PerspectiveCamera
         makeDefault
         position={[-4, 0, 20]}
-        fov={60}
+        fov={40}
         rotation={[0, -0.2, 0]}
       />
-      <Donut position={[12, 2, 0.5]} rotation={[1, -10, 69]} />
       <ambientLight intensity={10} />
-      <directionalLight intensity={100} position={[10, 10, 5]} />
-      <MacBook position={[2, 0, 4]} rotation={[0, 2, 0]} />
-      <Astronaut
-        position={[10, -8, 2]}
-        scale={4}
-        rotation={[degToRad(-55), degToRad(-45), degToRad(-55)]}
-      />
+      <directionalLight intensity={200} position={[10, 10, 5]} />
+      <group position={[-10, 2, 0]} rotation={[0, degToRad(30), 0]}>
+        <Stars radius={80} depth={50} count={840} factor={4} speed={1.2} />
+        <Donut position={[12, 2, 0.5]} rotation={[1, -10, 69]} />
+        <MacBook position={[5, 0, 2]} rotation={[0, 2, 0]} scale={0.8} />
+        <Astronaut
+          position={[10, -8, 2]}
+          scale={4}
+          rotation={[degToRad(-55), degToRad(-45), degToRad(-55)]}
+        />
+      </group>
     </>
   );
 }

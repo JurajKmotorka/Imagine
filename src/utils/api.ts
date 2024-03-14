@@ -24,7 +24,27 @@ export const fetchTagsAPI = async (userInput: string): Promise<string[]> => {
   }
 };
 
-export const fetchImagesAPI = async (tag: string): Promise<string> => {
+export interface trimmedData {
+  alt_description: string;
+  blur_hash: string;
+  id: string;
+  links: {
+    download_location: string;
+  };
+  urls: {
+    full: string;
+    raw: string;
+    regular: string;
+    small: string;
+    thumb: string;
+  };
+  user: {
+    username: string;
+    name: string;
+  };
+}
+
+export const fetchImagesAPI = async (tag: string): Promise<trimmedData> => {
   const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 
   console.log("first tag:", tag);
@@ -38,10 +58,9 @@ export const fetchImagesAPI = async (tag: string): Promise<string> => {
       throw new Error("Network response was not ok.");
     }
 
-    const data = await response.json();
-    const firstImage = data.results[1].urls.regular;
-    console.log(firstImage);
-    return firstImage;
+    const data: { results: trimmedData[] } = await response.json();
+    console.log("trimmedData:", data);
+    return data.results[1];
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
     throw error;

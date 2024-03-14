@@ -25,10 +25,10 @@ type GLTFResult = GLTF & {
   animations: any;
 };
 
-type ContextType = Record<
-  string,
-  React.ForwardRefExoticComponent<JSX.IntrinsicElements["mesh"]>
->;
+// type ContextType = Record<
+//   string,
+//   React.ForwardRefExoticComponent<JSX.IntrinsicElements["mesh"]>
+// >;
 
 export default function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/mac-draco.glb") as GLTFResult;
@@ -62,8 +62,8 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
         0.1
       ));
   });
-  materials.aluminium.metalness = 0.8;
-  materials.trackpad.metalness = 0.8;
+  materials.aluminium.metalness = 0.92;
+  materials.trackpad.metalness = 0.9;
   materials.touchbar.metalness = 0.8;
 
   return (
@@ -86,15 +86,16 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
               <Html
                 className="content"
                 rotation-x={-Math.PI / 2}
-                position={[0, 0.05, -0.09]}
+                rotation-y={-Math.PI / 0.94}
+                position={[0, -0.1, -0.35]}
                 transform
                 occlude
               >
                 <div
-                  className="bg-white w-[21rem] h-[13.2rem]"
+                  className=" w-[4.5rem] "
                   onPointerDown={(e) => e.stopPropagation()}
                 >
-                  <img src="https://images.unsplash.com/photo-1662032370568-3ea9738888c7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+                  <img src="/spacebook.png" alt="spacebook" />
                 </div>
               </Html>
             </mesh>

@@ -13,9 +13,12 @@
     "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.101.0",
     "@react-three/fiber": "^8.15.19",
+    "framer-motion": "^11.0.12",
+    "gsap": "^3.12.5",
     "leva": "^0.9.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-download-link": "^2.3.0",
     "react-router-dom": "^6.22.3",
     "three": "^0.162.0"
   },
