@@ -1,4 +1,4 @@
-import { trimmedData } from "../../utils/api";
+import { trimmedData } from "../../../utils/api";
 
 const Output = ({
   images,

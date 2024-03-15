@@ -16,13 +16,16 @@ function Input({ onSubmit }: { onSubmit: (userInput: string) => void }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input
+        <textarea
+          className="bg-transparent w-full h-96"
           type="text"
           value={userInput}
           onChange={handleInputChange}
-          placeholder="Enter text"
+          placeholder="Enter your article, blog-post or other entry you want your images generated for"
         />
-        <button type="submit">Submit</button>
+        <button className="border-t-[1px] w-full p-2" type="submit">
+          <span className="border-[1px] py-1 px-3 rounded-2xl">Submit</span>
+        </button>
       </form>
     </div>
   );

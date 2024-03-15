@@ -1,15 +1,14 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/HomePage/Index";
-import About from "./pages/AboutPage/index";
+import Home from "./components/pages/HomePage/Index";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/nekamdopice" element={<Home />} />
-          <Route path="/" element={<About />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={"bout"} />
           <Route path="/contact" element={"Contact"} />
         </Routes>
       </BrowserRouter>
