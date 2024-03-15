@@ -66,3 +66,20 @@ export const fetchImagesAPI = async (tag: string): Promise<trimmedData> => {
     throw error;
   }
 };
+
+export const fetchproxyAPI = async (image: trimmedData): Promise<string> => {
+  const proxyUrl = "https://api.codetabs.com/v1/proxy";
+  const imgUrl = `${proxyUrl}?quest=${encodeURIComponent(image.urls.full)}`;
+  try {
+    const response = await fetch(imgUrl);
+    if (!response.ok) {
+      throw new Error("Failed to download image.");
+    }
+    const blob = await response.blob();
+    const imageURL: string = window.URL.createObjectURL(blob);
+    return imageURL;
+  } catch (error) {
+    console.error("Error downloading image:", error);
+    throw error;
+  }
+};

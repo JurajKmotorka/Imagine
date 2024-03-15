@@ -1,17 +1,21 @@
 import Input from "./Input";
 import Output from "./Output";
-import { fetchTagsAPI, fetchImagesAPI, trimmedData } from "../../utils/api";
+import {
+  fetchTagsAPI,
+  fetchImagesAPI,
+  fetchproxyAPI,
+  trimmedData,
+} from "../../utils/api";
 import { useState } from "react";
 
 function Home() {
-  const [tags, setTags] = useState<string[]>([]);
   const [images, setImages] = useState<trimmedData[]>([]);
+  const [proxiedLinks, setProxiedLinks] = useState<string[] | null>([]);
 
   const handleInputSubmit = (userInput: string) => {
     fetchTagsAPI(userInput)
       .then((tagsResponse) => {
         console.log("Tags response:", tagsResponse);
-        setTags(tagsResponse);
 
         const promises = tagsResponse.slice(0, 3).map((tag) => {
           return fetchImagesAPI(tag);
@@ -19,9 +23,21 @@ function Home() {
 
         Promise.all(promises)
           .then((returnedData) => {
-            const data = returnedData.map((response) => response);
-            console.log("Images response:", data);
-            setImages(data);
+            setImages(returnedData);
+
+            console.log("Images response:", returnedData);
+            const proxiedLinkPromises = returnedData.map((image) =>
+              fetchproxyAPI(image)
+            );
+
+            Promise.all(proxiedLinkPromises)
+              .then((proxiedLinks) => {
+                console.log("Proxied links:", proxiedLinks);
+                setProxiedLinks(proxiedLinks);
+              })
+              .catch((error) => {
+                console.log("Error fetching proxied links:", error);
+              });
           })
           .catch((error) => {
             console.log("Error fetching images:", error);
@@ -33,10 +49,27 @@ function Home() {
   };
 
   return (
-    <div>
+    <>
+      <nav>
+        <img alt="logo" src="/logo.png" />{" "}
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
       <Input onSubmit={handleInputSubmit} />
-      <Output tags={tags ? tags : []} images={images ? images : []} />
-    </div>
+      <Output
+        images={images ? images : []}
+        downloadLinks={proxiedLinks ? proxiedLinks : []}
+      />
+    </>
   );
 }
 

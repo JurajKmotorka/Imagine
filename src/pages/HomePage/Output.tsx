@@ -1,35 +1,18 @@
-import { useState } from "react";
 import { trimmedData } from "../../utils/api";
 
 const Output = ({
-  tags,
   images,
+  downloadLinks,
 }: {
-  tags: string[];
   images: trimmedData[];
+  downloadLinks: string[] | null;
 }) => {
-  const [proxiedLink, setProxiedLink] = useState<string | null>(null);
-
-  const downloadImage = async (image: trimmedData) => {
-    const proxyUrl = "https://api.codetabs.com/v1/proxy";
-    const imgUrl = `${proxyUrl}?quest=${encodeURIComponent(image.urls.full)}`;
-    try {
-      const response = await fetch(imgUrl);
-      if (!response.ok) {
-        throw new Error("Failed to download image.");
-      }
-      const blob = await response.blob();
-      const imageURL = window.URL.createObjectURL(blob);
-      setProxiedLink(imageURL);
-    } catch (error) {
-      console.error("Error downloading image:", error);
-    }
-  };
+  console.log("downloadLinks:", downloadLinks);
 
   return (
     <>
       {/* Your rendering logic here */}
-      {images.map((image) => (
+      {images.map((image, index) => (
         <div key={image.id}>
           <img src={image.urls.small} alt={image.alt_description} />
           <p>
@@ -49,14 +32,14 @@ const Output = ({
             >
               Unsplash
             </a>{" "}
-            | <button onClick={() => downloadImage(image)}>Download</button>
+            {downloadLinks && (
+              <a href={downloadLinks[index]} download={image.alt_description}>
+                Download
+              </a>
+            )}
           </p>
         </div>
       ))}
-      <a href={proxiedLink} download="image.jpg">
-        Download proxied image
-      </a>
-      )
     </>
   );
 };
