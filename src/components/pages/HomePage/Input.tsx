@@ -17,7 +17,7 @@ function Input({ onSubmit }: { onSubmit: (userInput: string) => void }) {
     <div>
       <form onSubmit={handleSubmit}>
         <textarea
-          className="bg-transparent w-full h-96"
+          className="bg-transparent w-full h-[20vh] sm:h-96"
           type="text"
           value={userInput}
           onChange={handleInputChange}

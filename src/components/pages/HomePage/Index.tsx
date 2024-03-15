@@ -51,26 +51,26 @@ function Home() {
   };
 
   return (
-    <div className="bg-red-500 mx-8 my-6 p-[3px]  rounded-3xl overflow-hidden">
-      <div className="  w-full rounded-3xl h-full bg-gradient-to-b from-indigo-800  py-6 px-8 via-indigo-900 to-indigo-950 via-15% to-50%">
-        <nav className="flex justify-between p-4 border-b-[0px]">
-          <div className="flex items-center gap-2">
-            <img alt="logo" src="/spacebook-white.png" className="w-8 " />
-            Imagine
-          </div>
-          <ul className="flex gap-4">
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/about">About</a>
-            </li>
-            <li>
-              <a href="/contact">Contact</a>
-            </li>
-          </ul>
-        </nav>
-        <div className="flex ">
+    <div className=" sm:mx-8 sm:my-6 p-2 border-transparent bg-gradient-to-br from-red-500 to-indigo-600 sm:rounded-3xl ">
+      <nav className="flex justify-between p-4 border-b-[0px]">
+        <div className="flex items-center gap-2">
+          <img alt="logo" src="/spacebook-white.png" className="w-8 " />
+          Imagine
+        </div>
+        <ul className="flex gap-4">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+      <div className="  w-full  h-full  bg-gradient-to-b from-indigo-800  py-6 px-8 via-indigo-900 to-indigo-950 rounded-2xl sm:rounded-t-none via-15% to-50%">
+        <div className="flex flex-col-reverse  sm:flex-row  justify-between ">
           <Card>
             <Input onSubmit={handleInputSubmit} />
           </Card>
