@@ -39,14 +39,14 @@ type ActionName = "mixamo.com";
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName;
 }
-type ContextType = Record<
-  string,
-  React.ForwardRefExoticComponent<
-    | JSX.IntrinsicElements["mesh"]
-    | JSX.IntrinsicElements["skinnedMesh"]
-    | JSX.IntrinsicElements["bone"]
-  >
->;
+// type ContextType = Record<
+//   string,
+//   React.ForwardRefExoticComponent<
+//     | JSX.IntrinsicElements["mesh"]
+//     | JSX.IntrinsicElements["skinnedMesh"]
+//     | JSX.IntrinsicElements["bone"]
+//   >
+// >;
 
 export default function Astronaut(props: JSX.IntrinsicElements["group"]) {
   useEffect(() => {

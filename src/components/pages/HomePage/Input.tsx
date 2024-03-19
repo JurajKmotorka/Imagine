@@ -3,9 +3,19 @@ import * as inputs from "./inputs.json";
 
 function Input({ onSubmit }: { onSubmit: (userInput: string) => void }) {
   const [userInput, setUserInput] = useState("");
+  const [placeholderValue, setPlaceholderValue] = useState(
+    "Enter an article, blog-post or other entry you want your images generated for. Please make sure your text is at least 50 words long."
+  );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserInput(event.target.value);
+    if (event.target.value.length < 50) {
+      setPlaceholderValue(
+        "Ahh, this text was too short to find perfect images for :(. Please make sure your text is at least 50 words long."
+      );
+    } else {
+      setPlaceholderValue("");
+    }
   };
 
   const handleRandomInput = () => {
@@ -17,6 +27,9 @@ function Input({ onSubmit }: { onSubmit: (userInput: string) => void }) {
     event.preventDefault();
     onSubmit(userInput);
     setUserInput("");
+    setPlaceholderValue(
+      "Enter an article, blog-post or other entry you want your images generated for. Please make sure your text is at least 50 words long."
+    );
   };
 
   return (
@@ -25,14 +38,16 @@ function Input({ onSubmit }: { onSubmit: (userInput: string) => void }) {
       className=" w-full md:max-w-[50%] h-80 lg:h-96 flex flex-col  rounded-xl  border border-gray-100 "
     >
       <textarea
-        className="bg-transparent w-full grow"
+        className="bg-transparent w-full grow p-4 m-auto xl:text-lg"
         value={userInput}
         onChange={handleInputChange}
-        placeholder="Enter your article, blog-post or other entry you want your images generated for"
+        minLength={50}
+        onError={() => setPlaceholderValue("Entered text is too short.")}
+        placeholder={placeholderValue}
       />
       <div className="border-t-[1px] w-full p-3 flex gap-2 flex-row-reverse">
         <button className="hover:opacity-70" type="submit">
-          <span className="  border-2 py-1 px-3 rounded-2xl text-indigo-200 font-medium border-indigo-200">
+          <span className="   py-1 px-3 rounded-2xl text-indigo-950 font-bold bg-gradient-to-br from-red-500 to-indigo-500">
             Submit
           </span>
         </button>

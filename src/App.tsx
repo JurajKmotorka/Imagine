@@ -4,7 +4,7 @@ import Home from "./components/pages/HomePage/Index";
 
 function App() {
   return (
-    <div className="h-screen p-2">
+    <div className="md:h-screen p-2">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

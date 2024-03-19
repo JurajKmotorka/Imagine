@@ -10,7 +10,7 @@ const Output = ({
   console.log("downloadLinks:", downloadLinks);
 
   return (
-    <div className="flex gap-4 flex-col md:flex-row  justify-center border rounded-xl xl:h-72 h-36 md:h-64 lg:h-72 box-border p-4 w-full text-center mt-4 ">
+    <div className="flex gap-4 flex-col md:flex-row min-h-56  justify-center border rounded-xl xl:h-92  md:h-64 lg:h-72 box-border p-4 xl:px-32 w-full text-center mt-4 ">
       {images.length > 0 ? (
         images.map((image, index) => (
           <div
@@ -55,7 +55,9 @@ const Output = ({
           </div>
         ))
       ) : (
-        <div className="text-3xl">Your images will go here</div>
+        <div className="text-3xl my-auto text-gray-300">
+          Your images will go here
+        </div>
       )}
     </div>
   );

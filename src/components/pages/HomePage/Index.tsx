@@ -54,13 +54,14 @@ function Home() {
   };
 
   return (
-    <div className=" max-w-[2000px] h-full  mx-auto  flex flex-col p-2 border-transparent bg-gradient-to-br from-red-500 to-indigo-600 sm:rounded-3xl ">
-      <nav className="flex justify-between p-4">
-        <div className="flex items-center gap-2 ">
+    <div className=" max-w-[2000px] md:h-full  mx-auto  flex flex-col p-2 border-transparent bg-gradient-to-br from-red-500 to-indigo-600 sm:rounded-3xl ">
+      <nav className="flex justify-between p-4 box-border">
+        <div className="flex items-center gap-2 font-semibold text-xl">
           <img alt="logo" src="/spacebook-white.png" className="w-8 " />
-          Imagine
+          <span>Imagine</span>
         </div>
-        <ul className="flex gap-4">
+        {/* to be added later */}
+        {/* <ul className="flex gap-4 text-lg">
           <li>
             <a href="/">Home</a>
           </li>
@@ -70,7 +71,7 @@ function Home() {
           <li>
             <a href="/contact">Contact</a>
           </li>
-        </ul>
+        </ul> */}
       </nav>
       <div className=" from-indigo-800 grow  py-2 md:py-16   bg-gradient-to-b via-indigo-900  to-indigo-950 rounded-2xl sm:rounded-t-none via-15% to-50%">
         <div className=" flex h-full flex-col max-w-screen-2xl justify-center  mx-auto  px-8 ">
