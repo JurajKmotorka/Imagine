@@ -45,7 +45,7 @@ function Input({ onSubmit }: { onSubmit: (userInput: string) => void }) {
         onError={() => setPlaceholderValue("Entered text is too short.")}
         placeholder={placeholderValue}
       />
-      <div className="border-t-[1px] w-full p-3 flex gap-2 flex-row-reverse">
+      <div className="border-t-[1px] w-full p-3 flex gap-2 flex-row-reverse lg:text-lg">
         <button className="hover:opacity-70" type="submit">
           <span className="   py-1 px-3 rounded-2xl text-indigo-950 font-bold bg-gradient-to-br from-red-500 to-indigo-500">
             Submit
