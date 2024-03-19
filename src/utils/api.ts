@@ -51,7 +51,7 @@ export const fetchImagesAPI = async (tag: string): Promise<trimmedData> => {
 
   try {
     const response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${tag}&client_id=${accessKey}`
+      `https://api.unsplash.com/search/photos?query=${tag}&client_id=${accessKey}&orientation=landscape`
     );
 
     if (!response.ok) {

@@ -1,6 +1,5 @@
 import Input from "./Input";
 import Output from "./Output";
-import Card from "../../elements/Card";
 import {
   fetchTagsAPI,
   fetchImagesAPI,
@@ -28,9 +27,13 @@ function Home() {
             setImages(returnedData);
 
             console.log("Images response:", returnedData);
-            const proxiedLinkPromises = returnedData.map((image) =>
-              fetchproxyAPI(image)
-            );
+            const proxiedLinkPromises = returnedData.map((image) => {
+              if (image) {
+                return fetchproxyAPI(image);
+              } else {
+                return Promise.resolve("");
+              }
+            });
 
             Promise.all(proxiedLinkPromises)
               .then((proxiedLinks) => {
@@ -51,9 +54,9 @@ function Home() {
   };
 
   return (
-    <div className=" sm:mx-8 sm:my-6 p-2 border-transparent bg-gradient-to-br from-red-500 to-indigo-600 sm:rounded-3xl ">
-      <nav className="flex justify-between p-4 border-b-[0px]">
-        <div className="flex items-center gap-2">
+    <div className=" max-w-[2000px] h-full  mx-auto  flex flex-col p-2 border-transparent bg-gradient-to-br from-red-500 to-indigo-600 sm:rounded-3xl ">
+      <nav className="flex justify-between p-4">
+        <div className="flex items-center gap-2 ">
           <img alt="logo" src="/spacebook-white.png" className="w-8 " />
           Imagine
         </div>
@@ -69,23 +72,14 @@ function Home() {
           </li>
         </ul>
       </nav>
-      <div className="  w-full  h-full  bg-gradient-to-b from-indigo-800  py-6 px-8 via-indigo-900 to-indigo-950 rounded-2xl sm:rounded-t-none via-15% to-50%">
-        <div className="flex flex-col-reverse  sm:flex-row  justify-between ">
-          <Card>
+      <div className=" from-indigo-800 grow  py-2 md:py-16   bg-gradient-to-b via-indigo-900  to-indigo-950 rounded-2xl sm:rounded-t-none via-15% to-50%">
+        <div className=" flex h-full flex-col max-w-screen-2xl justify-center  mx-auto  px-8 ">
+          <div className="flex flex-col-reverse  md:flex-row  justify-between ">
             <Input onSubmit={handleInputSubmit} />
-          </Card>
-          <AstronautAnimation />
-        </div>
-        <Output
-          images={images ? images : []}
-          downloadLinks={proxiedLinks ? proxiedLinks : []}
-        />
+            <AstronautAnimation />
+          </div>
 
-        <div>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias
-          nobis tempore aperiam ipsum harum porro, deserunt ut soluta suscipit
-          assumenda cumque recusandae veniam esse commodi, at, autem quidem?
-          Necessitatibus, debitis.
+          <Output images={images} downloadLinks={proxiedLinks} />
         </div>
       </div>
     </div>

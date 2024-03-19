@@ -3,7 +3,7 @@ import Scene from "./Scene";
 import { Suspense } from "react";
 function AstronautAnimation() {
   return (
-    <div className="bg-[url('/blob.svg')]  h-[50vh]   md:w-[36rem]  md:h-[26rem] bg-cover bg-center ">
+    <div className="bg-[url('/blob.svg')]  h-[30vh] md:h-auto   lg:w-[56rem]  bg-cover bg-center ">
       <Canvas>
         <Suspense fallback={null}>
           <Scene />

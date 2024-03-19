@@ -10,37 +10,54 @@ const Output = ({
   console.log("downloadLinks:", downloadLinks);
 
   return (
-    <>
-      {/* Your rendering logic here */}
-      {images.map((image, index) => (
-        <div key={image.id}>
-          <img src={image.urls.small} alt={image.alt_description} />
-          <p>
-            Photo by{" "}
-            <a
-              href={`https://unsplash.com/@${image.user.username}?utm_source=Imagine&utm_medium=referral`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {image.user.username}
-            </a>{" "}
-            on{" "}
-            <a
-              href="https://unsplash.com/?utm_source=Imagine&utm_medium=referral"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Unsplash
-            </a>{" "}
-            {downloadLinks && (
-              <a href={downloadLinks[index]} download={image.alt_description}>
-                Download
-              </a>
-            )}
-          </p>
-        </div>
-      ))}
-    </>
+    <div className="flex gap-4 flex-col md:flex-row  justify-center border rounded-xl xl:h-72 h-36 md:h-64 lg:h-72 box-border p-4 w-full text-center mt-4 ">
+      {images.length > 0 ? (
+        images.map((image, index) => (
+          <div
+            key={image.id}
+            className=" border rounded-xl overflow-hidden flex flex-col "
+          >
+            <img
+              className=" aspect-video object-cover grow"
+              src={image.urls.regular}
+              alt={image.alt_description}
+            />
+            <p className="border-t py-1 px-2">
+              By{" "}
+              <a
+                className="text-indigo-300"
+                href={`https://unsplash.com/@${image.user.username}?utm_source=Imagine&utm_medium=referral`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {image.user.username}
+              </a>{" "}
+              on{" "}
+              <a
+                className="text-indigo-300"
+                href="https://unsplash.com/?utm_source=Imagine&utm_medium=referral"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Unsplash
+              </a>{" "}
+              {downloadLinks && (
+                <span className="float-right hover:opacity-70 text-transparent bg-clip-text bg-gradient-to-br from-red-500 to-indigo-500 font-medium">
+                  <a
+                    href={downloadLinks[index]}
+                    download={image.alt_description}
+                  >
+                    Download
+                  </a>
+                </span>
+              )}
+            </p>
+          </div>
+        ))
+      ) : (
+        <div className="text-3xl">Your images will go here</div>
+      )}
+    </div>
   );
 };
 
