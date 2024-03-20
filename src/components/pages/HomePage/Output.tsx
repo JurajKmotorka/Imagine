@@ -22,27 +22,29 @@ const Output = ({
               src={image.urls.regular}
               alt={image.alt_description}
             />
-            <p className="border-t py-1 px-2">
-              By{" "}
-              <a
-                className="text-indigo-300"
-                href={`https://unsplash.com/@${image.user.username}?utm_source=Imagine&utm_medium=referral`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {image.user.username}
-              </a>{" "}
-              on{" "}
-              <a
-                className="text-indigo-300"
-                href="https://unsplash.com/?utm_source=Imagine&utm_medium=referral"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Unsplash
-              </a>{" "}
+            <p className="border-t py-1 px-2 flex justify-around">
+              <span>
+                By{" "}
+                <a
+                  className="text-indigo-300"
+                  href={`https://unsplash.com/@${image.user.username}?utm_source=Imagine&utm_medium=referral`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {image.user.username}
+                </a>{" "}
+                on{" "}
+                <a
+                  className="text-indigo-300"
+                  href="https://unsplash.com/?utm_source=Imagine&utm_medium=referral"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Unsplash
+                </a>{" "}
+              </span>
               {downloadLinks && (
-                <span className="float-right hover:opacity-70 text-transparent bg-clip-text bg-gradient-to-br from-red-500 to-indigo-500 font-medium">
+                <span className=" hover:opacity-70 text-transparent bg-clip-text bg-gradient-to-br from-red-400 to-indigo-500 font-bold">
                   <a
                     href={downloadLinks[index]}
                     download={image.alt_description}
