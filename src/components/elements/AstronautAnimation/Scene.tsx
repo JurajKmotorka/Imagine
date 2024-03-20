@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { PerspectiveCamera, Stars } from "@react-three/drei";
 import { degToRad } from "three/src/math/MathUtils";
 import Astronaut from "./Astronaut";
@@ -7,13 +7,21 @@ import MacBook from "./MacBook";
 
 function Scene() {
   const groupRef = useRef<any>();
-  const [scale, setScale] = useState(0.02); // Initial scale
+  const starRef = useRef<any>();
+  const { viewport } = useThree();
 
-  useFrame(() => {
-    // Slowly increase the scale of the group over time
+  const [scale, setScale] = useState(0.02);
+
+  useFrame(({ mouse }) => {
     if (scale < 1.1) {
-      setScale((prevScale) => prevScale + 0.002 / (scale * 2)); // Adjust the increment as needed
+      setScale((prevScale) => prevScale + 0.002 / (scale * 2));
     }
+
+    const x = (mouse.x * viewport.width) / 300;
+    const y = (mouse.y * viewport.height) / 200;
+
+    // Apply rotation to the Astronaut
+    starRef.current.rotation.set(x, y, 0);
   });
 
   return (
@@ -26,7 +34,9 @@ function Scene() {
       />
       <ambientLight intensity={10} />
       <directionalLight intensity={200} position={[10, 10, 5]} />
-      <Stars radius={80} depth={50} count={840} factor={4} speed={1.2} />
+      <group ref={starRef}>
+        <Stars radius={80} depth={50} count={840} factor={4} speed={1.2} />
+      </group>
 
       <group
         ref={groupRef}
